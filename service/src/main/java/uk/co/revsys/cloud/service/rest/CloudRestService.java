@@ -80,7 +80,7 @@ public class CloudRestService {
 
     public static void main(String[] args) {
         ComputeServiceContext context = ContextBuilder.newBuilder("aws-ec2")
-                .credentials("AKIAIZAM5JCTRUP47Q3Q", "WfjSV39yjBnm5WzyB/eWsVfNMvkRaiJrg9a71XVr")
+                .credentials("", "")
                 .modules(ImmutableSet.<Module>of(new Log4JLoggingModule(),
                                 new SshjSshClientModule()))
                 .buildView(ComputeServiceContext.class);
