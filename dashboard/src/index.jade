@@ -1,0 +1,29 @@
+doctype html
+html(ng-app="dashboard")
+	head
+		title Cloud Dashboard
+		include head
+	body(ng-controller="DashboardCtrl")
+		div.container-fluid
+			div.col-md-12.main
+				table.table.table-striped
+					thead
+						tr
+							th ID
+							th Name
+							th Status
+							th Public IP
+							th Private IP
+							th Stop Overnight
+							th
+					tbody
+						tr(ng-repeat="instance in instances")
+							td {{instance.id}}
+							td {{instance.name}}
+							td {{instance.status}}
+							td {{instance.publicAddresses}}
+							td {{instance.privateAddresses}}
+							td {{instance.userMetadata.StopOvernight}}
+							td 
+								button.btn.btn-default(ng-hide="instance.status == 'RUNNING'" ng-click="startInstance(instance.id)") Start
+								button.btn.btn-default(ng-show="instance.status == 'RUNNING'" ng-click="stopInstance(instance.id)") Stop

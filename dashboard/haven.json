@@ -1,0 +1,24 @@
+{
+	"name": "echo-central-dashboard",
+	"version": "0.1.0",
+	"dependencies": [
+		{
+			"name": "angularjs",
+			"version": "1.2.13",
+			"includes":["angular.js"]
+		},
+		{
+			"name": "jquery",
+			"version": "2.1.0-2",
+			"includes": ["jquery.js"]
+		},
+		{
+			"name": "bootstrap",
+			"version": "3.1.1",
+			"includes":[
+				"bootstrap.css",
+				"bootstrap.js"
+			]
+		}
+	]
+}

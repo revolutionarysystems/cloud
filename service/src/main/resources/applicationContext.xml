@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+	<context:annotation-config/>
+
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:cloud-service.properties</value>
+			</list>
+		</property>
+	</bean>
+	
+     <bean class="uk.co.revsys.cloud.service.ComputeServiceFactory">
+        <property name="computeService" ref="computeService"/>
+    </bean>
+    
+    <bean class="org.apache.wink.spring.Registrar">
+        <property name="classes">
+            <set value-type="java.lang.Class"/>
+        </property>
+        <property name="instances">
+            <set>
+                <bean class="uk.co.revsys.cloud.service.rest.CloudRestService"/>
+            </set>
+        </property>
+    </bean>
+	
+	<bean id="contextBuilder" class="org.jclouds.ContextBuilder" factory-method="newBuilder">
+        <constructor-arg value="${cloud.type}"/>
+    </bean>
+
+    <bean id="contextBuilderWithCreds" factory-bean="contextBuilder" factory-method="credentials">
+        <constructor-arg  value="${cloud.identity}"/>
+        <constructor-arg  value="${cloud.credential}"/>
+    </bean>
+    
+    <bean id="contextBuilderWithModules" factory-bean="contextBuilderWithCreds" factory-method="modules">
+        <constructor-arg name="modules">
+            <list>
+                <bean class="org.jclouds.logging.slf4j.config.SLF4JLoggingModule"/>
+            </list>
+        </constructor-arg>
+    </bean>
+	
+	<bean id="computeServiceContext" factory-bean="contextBuilderWithModules" factory-method="buildView">
+        <constructor-arg>
+            <value>org.jclouds.compute.ComputeServiceContext</value>
+        </constructor-arg>
+    </bean>
+ 
+	<bean id="computeService" factory-bean="computeServiceContext" factory-method="getComputeService"/>
+    
+    <bean id="logger" class="org.jclouds.logging.ConsoleLogger"/>
+    
+</beans>
