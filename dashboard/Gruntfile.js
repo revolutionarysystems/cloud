@@ -60,6 +60,9 @@ module.exports = function(grunt) {
   grunt.registerTask('build', ['clean', 'jade', 'concat', 'copy', 'compress']);
   grunt.registerTask('deploy', ['update', 'build', 'haven:deploy']);
 
+  // Special task just for travis which skips install the artifact
+  grunt.registerTask('travis', ['update', 'build', 'haven:deployOnly']);
+
   // Default task(s).
   grunt.registerTask('default', ['build']);
 
