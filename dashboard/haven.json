@@ -1,16 +1,11 @@
 {
-	"name": "echo-central-dashboard",
+	"name": "cloud-dashboard",
 	"version": "0.1.0",
 	"dependencies": [
 		{
 			"name": "angularjs",
 			"version": "1.2.13",
 			"includes":["angular.js"]
-		},
-		{
-			"name": "jquery",
-			"version": "2.1.0-2",
-			"includes": ["jquery.js"]
 		},
 		{
 			"name": "bootstrap",
@@ -20,5 +15,17 @@
 				"bootstrap.js"
 			]
 		}
-	]
+	],
+	"artifacts": [{
+			"files": [
+				{"dist/cloud-dashboard.tar.gz": "cloud-dashboard.tar.gz"}
+			]}
+	],
+	"repositories": {
+		"distribution": [
+			{
+				"url": "http://build.revsys.co.uk/haven-repository"
+			}
+		]
+	}
 }

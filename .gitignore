@@ -1,3 +1,6 @@
 /dashboard/sublime
 /service/target
 /service/nb-configuration.xml
+/dashboard/haven_artifacts
+/dashboard/node
+/dashboard/dist

@@ -1,0 +1,1 @@
+var cloudServiceUrl = "/cloud-service/";
