@@ -48,7 +48,7 @@
                             <goal>grunt</goal>
                         </goals>
                         <configuration>
-                            <arguments>deploy</arguments>
+                            <arguments>deployOnly</arguments>
                         </configuration>
                     </execution>
 
