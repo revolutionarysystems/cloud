@@ -9,7 +9,7 @@
 	
     <modules>
         <module>service</module>
-        <module>dashboard</module>
+        <!--module>dashboard</module-->
     </modules>
     
     <build>
