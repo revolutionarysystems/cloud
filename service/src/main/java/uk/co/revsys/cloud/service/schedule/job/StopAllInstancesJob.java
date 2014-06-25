@@ -16,7 +16,7 @@ public class StopAllInstancesJob implements Job {
         Set<? extends ComputeMetadata> instances = computeService.listNodes();
         for (ComputeMetadata instance : instances) {
             String stopOvernight = instance.getUserMetadata().get("StopOvernight");
-            if (stopOvernight.equalsIgnoreCase("true")) {
+            if (stopOvernight!=null && stopOvernight.equalsIgnoreCase("true")) {
                 computeService.suspendNode(instance.getId());
             }
         }
