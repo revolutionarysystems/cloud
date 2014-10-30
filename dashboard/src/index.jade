@@ -11,6 +11,7 @@ html(ng-app="dashboard")
 						tr
 							th ID
 							th Name
+							th Type
 							th Status
 							th Public IP
 							th Private IP
@@ -20,6 +21,7 @@ html(ng-app="dashboard")
 						tr(ng-repeat="instance in instances")
 							td {{instance.id}}
 							td {{instance.name}}
+							td {{instance.hardware.id}}
 							td {{instance.status}}
 							td {{instance.publicAddresses}}
 							td {{instance.privateAddresses}}
