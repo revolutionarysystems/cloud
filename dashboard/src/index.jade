@@ -27,5 +27,5 @@ html(ng-app="dashboard")
 							td {{instance.privateAddresses}}
 							td {{instance.userMetadata.StopOvernight}}
 							td 
-								button.btn.btn-default(ng-hide="instance.status == 'RUNNING'", ng-click="startInstance(instance.id)") Start
-								button.btn.btn-default(ng-show="instance.status == 'RUNNING'", ng-click="stopInstance(instance.id)") Stop
+								button.btn.btn-primary(ng-hide="instance.status == 'RUNNING'", ng-click="startInstance(instance.id)") Start
+								button.btn.btn-danger(ng-show="instance.status == 'RUNNING'", ng-click="stopInstance(instance.id)") Stop
