@@ -4,6 +4,11 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     clean: ["dist"],
+    haven: {
+      ci: {
+        cache: "./haven_cache"
+      }
+    },
     jade: {
       html: {
         src: ['src/*.jade'],
@@ -59,10 +64,10 @@ module.exports = function(grunt) {
   grunt.registerTask('update', ['haven:update']);
   grunt.registerTask('build', ['clean', 'jade', 'concat', 'copy']);
   grunt.registerTask('dist', ['clean', 'jade', 'concat', 'copy', 'compress']);
-  grunt.registerTask('deploy', ['update', 'build', 'haven:deploy']);
+  grunt.registerTask('deploy', ['update', 'dist', 'haven:deploy']);
 
   // Special task just for travis which skips install the artifact
-  grunt.registerTask('travis', ['update', 'build', 'haven:deployOnly']);
+  grunt.registerTask('travis', ['haven:update:ci', 'dist', 'haven:deployOnly']);
 
   // Default task(s).
   grunt.registerTask('default', ['build']);
