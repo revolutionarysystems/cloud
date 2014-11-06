@@ -10,6 +10,7 @@ public class SpotImage {
     private float spotPrice;
     private boolean stopOvernight;
     private List<String> securityGroups;
+    private DNSSettings dnsSettings;
 
     public String getName() {
         return name;
@@ -57,6 +58,14 @@ public class SpotImage {
 
     public void setSecurityGroups(List<String> securityGroups) {
         this.securityGroups = securityGroups;
+    }
+
+    public DNSSettings getDnsSettings() {
+        return dnsSettings;
+    }
+
+    public void setDnsSettings(DNSSettings dnsSettings) {
+        this.dnsSettings = dnsSettings;
     }
     
 }

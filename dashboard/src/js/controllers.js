@@ -33,7 +33,7 @@ dashboard.controller('DashboardCtrl', function($scope, $http) {
 		var result = [];
 		for(var i in $scope.instances){
 			var instance = $scope.instances[i];
-			if(instance.name == image.name){
+			if(instance.name == image.name && image.status == "RUNNING"){
 				result.push(instance);
 			}
 		}

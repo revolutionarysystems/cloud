@@ -14,16 +14,18 @@ html(ng-app="dashboard")
 							th Name
 							th Type
 							th Status
+							th Domain
 							th Public IP
 							th Private IP
 							th Stop Overnight
 							th
 					tbody
-						tr(ng-repeat="instance in instances", ng-if="instance.userMetadata.Deprecated != 'true'")
+						tr(ng-repeat="instance in instances", ng-if="instance.userMetadata.Deprecated != 'true' && instance.status != 'TERMINATED'")
 							td {{instance.id}}
 							td {{instance.name}}
 							td {{instance.hardware.id}}
 							td {{instance.status}}
+							td {{instance.userMetadata.Domain}}
 							td {{instance.publicAddresses}}
 							td {{instance.privateAddresses}}
 							td {{instance.userMetadata.StopOvernight}}
@@ -38,6 +40,7 @@ html(ng-app="dashboard")
 							th Name
 							th Type
 							th Status
+							th Domain
 							th Public IP
 							th Stop Overnight
 							th Max Price
@@ -47,12 +50,13 @@ html(ng-app="dashboard")
 							td {{image.name}}
 							td {{image.type}}
 							td {{getImageStatus(image)}}
+							td {{image.dnsSettings.domain}}
 							td {{image.ipAddress}}
 							td {{image.stopOvernight}}
 							td {{image.spotPrice}}
 							td 
 								button.btn.btn-primary(ng-show="canBeStarted(image)", ng-click="startImage(image.name)") Start
-				h3 DEPRECATED
+				h3 TERMINATED/DEPRECATED
 				table.table.table-striped
 					thead
 						tr
@@ -60,16 +64,18 @@ html(ng-app="dashboard")
 							th Name
 							th Type
 							th Status
+							th Domain
 							th Public IP
 							th Private IP
 							th Stop Overnight
 							th
 					tbody
-						tr(ng-repeat="instance in instances", ng-if="instance.userMetadata.Deprecated == 'true'")
+						tr(ng-repeat="instance in instances", ng-if="instance.userMetadata.Deprecated == 'true' || instance.status == 'TERMINATED'")
 							td {{instance.id}}
 							td {{instance.name}}
 							td {{instance.hardware.id}}
 							td {{instance.status}}
+							td {{instance.userMetadata.Domain}}
 							td {{instance.publicAddresses}}
 							td {{instance.privateAddresses}}
 							td {{instance.userMetadata.StopOvernight}}

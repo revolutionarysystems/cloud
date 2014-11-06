@@ -2,8 +2,6 @@ package uk.co.revsys.cloud.service.rest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import javax.ws.rs.GET;
@@ -19,10 +17,10 @@ import org.jclouds.compute.ComputeService;
 import org.jclouds.compute.RunNodesException;
 import org.jclouds.compute.domain.NodeMetadata;
 import org.jclouds.compute.domain.Template;
-import org.jclouds.ec2.domain.BlockDeviceMapping;
 import org.jclouds.ec2.features.ElasticIPAddressApi;
 import org.jclouds.rest.ApiContext;
 import uk.co.revsys.cloud.service.ComputeServiceFactory;
+import uk.co.revsys.cloud.service.DNSSettings;
 import uk.co.revsys.cloud.service.DaoException;
 import uk.co.revsys.cloud.service.SpotImage;
 import uk.co.revsys.cloud.service.SpotImageDao;
@@ -72,6 +70,11 @@ public class ImageRestService {
             AWSEC2TemplateOptions templateOptions = template.getOptions().as(AWSEC2TemplateOptions.class);
             templateOptions.userMetadata("Name", image.getName()).userMetadata("alias", alias).userMetadata("SpotInstance", "true").userMetadata("StopOvernight", String.valueOf(image.getStopOvernight()));
             String userData = alias + "|" + controller;
+            DNSSettings dnsSettings = image.getDnsSettings();
+            if(dnsSettings!=null){
+                userData = userData + "|" + dnsSettings.getZone() + "|" + dnsSettings.getDomain() + "|" + dnsSettings.getIpType();
+                templateOptions.userMetadata("Domain", dnsSettings.getDomain());
+            }
             templateOptions.userData(userData.getBytes());
             templateOptions.spotPrice(image.getSpotPrice());
             templateOptions.securityGroups(image.getSecurityGroups());
